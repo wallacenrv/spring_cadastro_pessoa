@@ -50,9 +50,13 @@
 </div>
 
 
-<!--onsubimit : tem um script la em baixo validade o true e false -->
+<!--onsubimit : tem um script la em baixo validade o true e false
+ cadastro tem seu formulario especifico PRO POST - o post injeta -->
+
 
 <div class="row">
+<!--    preciso pegar o id da pessoa e enviar junto com os dados do telefone e ele poder salvar no banco de dados
+... temos que pegar dentro do action-->
     <form th:action="@{/addfonePessoa/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" class=" col s12"
           onsubmit="return validarCampos()? true : false">
         <div class="row">
@@ -72,10 +76,14 @@
 
 </div>
 
+
+<!--tabela para mostrar os telefones
+vai vir do banco de dados ${telefones}-->
 <table class="striped">
     <tr th:each="fone : ${telefones}">
         <td th:text="${fone.numero}">
         <td th:text="${fone.tipo}">
+<!--        excluir telefone-->
         <td><a th:href="@{/removertelefone/{idtelefone}(idtelefone=${fone.id})}">Excluir</a></td>
     </tr>
 

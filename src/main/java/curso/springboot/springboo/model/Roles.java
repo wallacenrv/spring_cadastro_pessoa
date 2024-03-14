@@ -16,10 +16,13 @@ public class Roles implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    // nome do acesso
     private String nomeRole;
 
+    // ROLE_ADMIN, ROLE_GERENTE, ROLE_SECREIARIO = padrao do spring security
     @Override
-    public String getAuthority() { // ROLE_ADMIN, ROLE_GERENTE, ROLE_SECREIARIO
+    public String getAuthority() {
         return this.nomeRole;
     }
 

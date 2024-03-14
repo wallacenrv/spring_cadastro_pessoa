@@ -16,9 +16,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //@EnableTransactionManagement
 //@EnableJpaRepositories(basePackages ={"curso.springboot.springboo.model"} )
 @SpringBootApplication
-@ComponentScan(basePackages = {"curso.*"})// mapear tudo
-@EntityScan(basePackages = "curso.springboot.springboo.model")
-@EnableWebMvc // para criar tela de login , habilitar todos os crecursos de mvc
+@ComponentScan(basePackages = {"curso.*"})// forca mapear todos os pacotes
+@EntityScan(basePackages = "curso.springboot.springboo.model")// Faz o scaneamento das entidades
+@EnableWebMvc // para criar tela de login , habilitar todos os RECURSOS de mvc
 public class SpringbooApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
@@ -27,12 +27,22 @@ public class SpringbooApplication implements WebMvcConfigurer {
 
     }
 
+    // rESPONSAVEL PELA TELA DE LOGIN
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("/login");//vai interceptar o login e mandar para a telade login
         registry.setOrder(Ordered.LOWEST_PRECEDENCE);
+
+
+        //parte 1
+       // public static void main(String[] args) {
+     //       SpringApplication.run(SpringbooApplication.class, args);
 //			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //			String result = encoder.encode("123"); // QUERO CODIFICAR E DEPOIS EXECUTO ESSE METODO
 //			System.out.println(result);
+
+    //    }
+
+
     }
 }
 

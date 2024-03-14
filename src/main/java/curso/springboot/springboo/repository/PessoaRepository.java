@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
+@Transactional // o Spring controla todas as transacoes do Spring
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     // JPA REPOSITORY EXTEND DA pAGIN AND SORT PARA PAGINACAO
 //    Selecione da tabela Pessoa do campo nome , onde contenha %?1%

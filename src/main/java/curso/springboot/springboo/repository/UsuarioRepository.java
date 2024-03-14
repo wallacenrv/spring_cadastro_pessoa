@@ -14,3 +14,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
         // ?1 siginfica primeiro paramentro que eu passar
     Usuario findUserByLogin(String login);
 }
+
+
+//login : wallacen senha : 123

@@ -21,16 +21,16 @@ public class Usuario implements UserDetails {
 
 
     @OneToMany(fetch = FetchType.EAGER) // para sempre carregar
-    @JoinTable(name = "usuario_role",
-            joinColumns = @JoinColumn(name = "usuario_id",
+    @JoinTable(name = "usuario_role",//cria tabela de acesso do usuario
+            joinColumns = @JoinColumn(name = "usuario_id",// nome da coluna
                     referencedColumnName = "id",
-                    table = "usuario"),// cria tabela de acesso do usuario
+                    table = "usuario"),// referenciando o id da tabela usuario
 
-            inverseJoinColumns = @JoinColumn(name = "role_id",
+            inverseJoinColumns = @JoinColumn(name = "role_id", // é da roles
                     referencedColumnName = "id",
                     table = "role"))
     private List<Roles> roles;
-
+// um usuario tem muitos acessos
 
     public Long getId() {
         return id;
@@ -56,16 +56,21 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
 
+
+    //aqui
     @Override
     public String getPassword() {
         return senha;
     }
 
+    //aqui
     @Override
     public String getUsername() {
         return login;

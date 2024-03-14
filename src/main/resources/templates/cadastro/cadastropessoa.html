@@ -63,12 +63,14 @@
         <br/>
 
         <!--  ----------- salvar pessoa ----------->
-
+<!--        th:object="${pessoaobj}" - carrega o objeto que vem do banco de dados -->
+<!--      e distribui nos campos para edicao   th:field="*{id}"   /     th:field="*{nome}"    /        th:field="*{sobrenome}"   / th:field="*{sexopessoa}">-->
         <form action="salvarpessoa" id="formpessoa" method="post" th:object="${pessoaobj}" class="col s12">
 
             <div class="row">
                 <div class="input-fiel col s6">
                     <label for="id" class="active">ID</label>
+
                     <input name="id" th:field="*{id}" id="id"
                            readonly="readonly">
                 </div>
@@ -95,7 +97,7 @@
                     </select>
                 </div>
             </div>
-
+<!--            <div class="row" sec:authorize="hasRole('ROLE_GERENTE')">-->
             <div class="row">
                 <div class="input-field col s12">
                     <label for="idade" class="active">Idade</label>
@@ -153,6 +155,7 @@
                     <input class="waves-effect waves-light btn" type="submit"
                            value="Salvar">
 
+<!--        Script que limpa os campos             onclick="document.getElementById('formpessoa').reset();">-->
                     <button class="waves-effect waves-light btn"
                             onclick="document.getElementById('formpessoa').reset();">
                         Novo
@@ -212,13 +215,16 @@
         <th>Excluir</th>
     </tr>
     </thead>
+<!--    (pessoa é o objeto):  pessoas.content é a lista que vem do banco de dados-->
     <tr th:each="pessoa : ${pessoas.content}">
         <td th:text="${pessoa.id}"></td>
+<!--        Aqui estou criando um link no nome para o telefone-->
         <td><a th:href="@{/telefones/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text="${pessoa.nome}"></span></a></td>
         <td th:text="${pessoa.sobrenome}"></td>
         <td th:text="${pessoa.idade}"></td>
         <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
         <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
+<!--       PEGA o valor do id que esta na linha (idpessoa=${pessoa.id})-->
     </tr>
 </table>
 

@@ -26,10 +26,21 @@ public class Pessoa implements Serializable {
     private Long id;
 
     @NotBlank(message = "O campo não pode estar em branco")
+    @NotNull(message = "Nao pode ser nulo")
+    @NotEmpty(message = "Nao pode ser vazio")
     private String nome;
 
     @NotBlank(message = "O campo não pode estar em branco")
     private String sobrenome;
+
+    @Min(value = 18, message = "A idade deve ser no mínimo 18")
+    private int idade;
+
+
+    // quando remover o pai, removo os filhos
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
+
+    private List<Telefone> telefones;
 
 
     private String cep;
@@ -97,12 +108,7 @@ public class Pessoa implements Serializable {
         this.ibge = ibge;
     }
 
-    @Min(value = 18, message = "A idade deve ser no mínimo 18")
-    private int idade;
 
-    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
-    // quando remover o pai, removo os filhos
-    private List<Telefone> telefones;
 
     public List<Telefone> getTelefones() {
         return telefones;

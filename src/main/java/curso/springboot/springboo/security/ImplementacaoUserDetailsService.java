@@ -25,6 +25,9 @@ public class ImplementacaoUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuário não foi encontrado");
         }
 
+
+        // apos criar as tabelas
+        //aqui verifico login , senha e acessos e as autoridades dque configuiramos na tabela
         return new User(usuario.getLogin(), usuario.getPassword(),
                 usuario.isEnabled(), true,
                 true, true,

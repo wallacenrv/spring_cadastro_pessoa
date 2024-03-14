@@ -7,12 +7,14 @@ import javax.persistence.*;
 public class Telefone {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // usa o sequenciador do banco de dados
     private Long id;
     private String numero;
     private String tipo;
 
     // fazendo o relacionamento usando JPA
+
+
 
     @JoinColumn(name = "pessoa_id", foreignKey = @ForeignKey(name = "fk_telefone_pessoa"))
     @ManyToOne(fetch = FetchType.EAGER)  // muitos telefone para uma pessoa

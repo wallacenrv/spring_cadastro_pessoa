@@ -35,14 +35,14 @@ public class PessoaController {
     @RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa")
     public ModelAndView inicio() {
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
-        modelAndView.addObject("pessoaobj", new Pessoa());
+        modelAndView.addObject("pessoaobj", new Pessoa()); // quando estiver na tela de cadastro... crio um objeto vazio
         Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("nome"))); // paginando = carregar do 0 ate o 5 e ordenando por nome
         modelAndView.addObject("pessoas", pessoasIt);
         return modelAndView;
     }
 
 
-    //    METODO DE PAGINACAO - back end
+    //    METODO DE PAGINACAO - back end // ele vai intercepetar a paginacao
     @GetMapping("/pessoaspag")
     public ModelAndView carregaPessoaPorPaginacao(@PageableDefault(size = 5) Pageable pageable,
                                                   ModelAndView model, @RequestParam("nomepesquisa") String nomepesquisa) {
@@ -63,8 +63,8 @@ public class PessoaController {
 
         pessoa.setTelefones(telefoneRepository.getTelefones(pessoa.getId())); // tem que carregar os telefones, porque esta em cascata. senao dar erro na hora e ] de editar o cadastro, o mapemaneto esta em casacata
 
-
-        if (bindingResult.hasErrors()) {
+// validacao para salvar
+        if (bindingResult.hasErrors()) { // se tiver erros
             ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
 
             modelAndView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("nome"))));
@@ -83,7 +83,7 @@ public class PessoaController {
 
         ModelAndView andView = new ModelAndView("cadastro/cadastropessoa");
         andView.addObject("pessoas", pessoaRepository.findAll(PageRequest.of(0, 5, Sort.by("nome"))));
-        andView.addObject("pessoaobj", new Pessoa());
+        andView.addObject("pessoaobj", new Pessoa()); // cria um objeto vazio para o formlario trabalhar corretamente
 
         return andView;
 
@@ -102,7 +102,7 @@ public class PessoaController {
     @GetMapping("/editarpessoa/{idpessoa}")
     public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
 
-        Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa);
+        Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa); // carregar o objeto pessoa atraves do uid
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
         modelAndView.addObject("pessoaobj", pessoa.get());
@@ -144,6 +144,7 @@ public class PessoaController {
     }
 
 
+    //
     @GetMapping("/telefones/{idpessoa}")
     public ModelAndView telefones(@PathVariable("idpessoa") Long idpessoa) {
 
@@ -185,19 +186,19 @@ public class PessoaController {
         }
 
         ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
-
         telefone.setPessoa(pessoa);
 
         telefoneRepository.save(telefone);
 
         modelAndView.addObject("pessoaobj", pessoa);
-        modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
+        modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoaid)); // carrega os telefones das pessoas
         return modelAndView;
     }
 
     @GetMapping("/removertelefone/{idtelefone}")
     public ModelAndView removertelefone(@PathVariable("idtelefone") Long idtelefone) {
 
+        // eu consigo trazer a pessoa, porque tenho a pessoa amarrada ao telefone
         Pessoa pessoa = telefoneRepository.findById(idtelefone).get().getPessoa();
 
         telefoneRepository.deleteById(idtelefone);
