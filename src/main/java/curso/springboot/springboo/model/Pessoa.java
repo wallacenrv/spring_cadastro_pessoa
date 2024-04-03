@@ -42,7 +42,7 @@ public class Pessoa implements Serializable {
 
     private List<Telefone> telefones;
 
-
+// Dados do CEP - vamos consumir a apiCEP
     private String cep;
     private String rua;
     private String bairro;

@@ -102,9 +102,10 @@ public class PessoaController {
     @GetMapping("/editarpessoa/{idpessoa}")
     public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
 
-        Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa); // carregar o objeto pessoa atraves do uid
+
 
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+        Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa); // carregar o objeto pessoa atraves do ipessoa.get().getTelefones();
         modelAndView.addObject("pessoaobj", pessoa.get());
         return modelAndView;
 
@@ -201,11 +202,14 @@ public class PessoaController {
         // eu consigo trazer a pessoa, porque tenho a pessoa amarrada ao telefone
         Pessoa pessoa = telefoneRepository.findById(idtelefone).get().getPessoa();
 
+
+
         telefoneRepository.deleteById(idtelefone);
 
         ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
         modelAndView.addObject("pessoaobj", pessoa);
         modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoa.getId()));
+        modelAndView.addObject("pessoaobj", new Pessoa());
         return modelAndView;
 
     }

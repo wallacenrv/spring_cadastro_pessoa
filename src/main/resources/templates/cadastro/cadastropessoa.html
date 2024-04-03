@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Cadastro Geral</title>
 
-    <!-- Adicionando JQuery - uma biblioteca de Javascript -->
+    <!-- Adicionando JQuery - uma biblioteca de Javascript para consumir apicep -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
             crossorigin="anonymous"></script>
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="input-fiel col s6">
                     <label for="id" class="active">ID</label>
-
+<!-- o fild representa um campo no banco de dados -->
                     <input name="id" th:field="*{id}" id="id"
                            readonly="readonly">
                 </div>
@@ -169,13 +169,17 @@
 <br/>
 <br/>
 
+
+<!--_________________________________________CAMPOS DE PESQUISA____________________________________________-->
+
+<!--fildeset é uma linha em volta  + legend-->
 <fieldset>
     <legend>Campos de pesquisa</legend>
     <div class="row">
         <form action="pesquisarpessoa" method="post" class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <label for="nomepesquisa" class="active">Pesquia por nome:</label>
+                    <label for="nomepesquisa" class="active">Pesquisa por nome:</label>
                     <input name="nomepesquisa" id="nomepesquisa" class="validate"
                            th:value="${nomepesquisa}">
 
@@ -190,9 +194,9 @@
                     </select>
                 </div>
 
+<!--                notao buscar e listar pessoas-->
                 <div class="input-field col s12">
-                    <input class="waves-effect waves-light btn" type="submit"
-                           value="Buscar">
+                    <input class="waves-effect waves-light btn" type="submit" value="Buscar">
                     <a class="waves-effect waves-light btn" href="/listapessoas">Lista Pessoas</a>
                 </div>
             </div>
@@ -202,7 +206,7 @@
 <br/>
 <br/>
 
-<!------------------  Listar cadastro de pessoas ----------------- -->
+<!----------------------------------------  Listar cadastro de pessoas -------------------------------------------- -->
 
 <table class="striped">
     <thead>
@@ -222,12 +226,14 @@
         <td><a th:href="@{/telefones/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text="${pessoa.nome}"></span></a></td>
         <td th:text="${pessoa.sobrenome}"></td>
         <td th:text="${pessoa.idade}"></td>
-        <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></td>
+        <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a> </td>
         <td><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></td>
 <!--       PEGA o valor do id que esta na linha (idpessoa=${pessoa.id})-->
     </tr>
 </table>
 
+
+<!--________________________________________________PAGINACAO_______________________________________________________-->
 <div class="row" style="margin-top: 30px;">
     <center>
 
@@ -247,6 +253,9 @@
 
     </center>
 </div>
+
+
+<!--_____________________________________________________________________________________________________________________-->
 
 <!-- Adicionando Javascript -->
 <script type="text/javascript">
